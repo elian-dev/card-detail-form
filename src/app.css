@@ -1,0 +1,28 @@
+:root {
+  --var-linear-gradient: hsl(249, 99%, 64%) to hsl(278, 94%, 30%);
+  --color-red: hsl(0, 100%, 66%);
+
+  --color-white: hsl(0, 0%, 100%);
+  --light-grayish-violet: hsl(270, 3%, 87%);
+  --dark-grayish-violet: hsl(279, 6%, 55%);
+  --very-dark-violet: hsl(278, 68%, 11%);
+
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card-preview {
+  height: 100%;
+  background: url(./assets/images/bg-main-desktop.png);
+  background-repeat: no-repeat;
+}

@@ -1,4 +1,6 @@
 <script>
+  import { scale } from "svelte/transition";
+
     const actualYear = new Date().getFullYear();
 
     const years = [];
@@ -20,38 +22,38 @@
         <input id="number" type="number" placeholder="e.g 1234 5678 9123 0000">
       </div>
 
-
-      <div class="input-group--inputs">
-            <div class="input-group input-group--exp-date">
-                <label for="exp-month">EXP. DATE (MM//YY)</label>
-                <div class="input-group input-group--exp-date--selects">
-                    <select name="exp-month" id="exp-month">
-                        {#each Array(12) as _, index}
-                            <option>{index + 1}</option>
-                        {/each}
-                    </select>
-            
-                    <select name="exp-year" id="exp-year">
-                        {#each years as year}
-                            <option>{year}</option>
-                        {/each}
-                    </select>
-                </div>
-            </div>
+      <div class="input-group input-group--inputs">
+            <label class="input-group--label1" for="exp-month">EXP. DATE (MM//YY)</label>
+            <select class="input-group--month" name="exp-month" id="exp-month" required>
+                <option selected value="" disabled>MM</option>
+                {#each Array(12) as _, index}
+                    <option>{index + 1}</option>
+                {/each}
+            </select>
     
-            <div class="input-group">
-                <label for="cvc">CVC</label>
-                <input id="cvc" type="password" placeholder="number">
-            </div>
+            <select class="input-group--year" name="exp-year" id="exp-year" required>
+                <option selected value="" disabled>YY</option>
+                {#each years as year}
+                    <option>{year}</option>
+                {/each}
+            </select>
 
+            <label class="input-group--label2" for="cvc">CVC</label>
+            <input class="input-group--cvc" id="cvc" type="password" placeholder="e.g 123">
       </div>
       
+
+      <div class="input-group">
+        <input id="submit" type="submit" value="confirm">
+      </div>
+
     </form>
 </div>
 
-<style>
+<style lang="scss">
     .card-form {
-        margin: 2rem; 
+        width: 90%;
+        margin: 3rem auto 0 auto;
     }
 
     .input-group {
@@ -61,33 +63,99 @@
         gap: .5rem;
     }
 
-    .input-group label {
-        color: var(--very-dark-violet);
-        font-weight: 700;
-    }
+    .input-group  {
+        label {
+            color: var(--very-dark-violet);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        input, select {
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--light-grayish);
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 1rem;
+            color: var(--light-grayish);
+        }
 
-    .input-group input, .input-group select {
-        height: 40px;
-        border-radius: 10px;
-        border: 1px solid var(--light-grayish);
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+        select {
+            height: 45px;
 
-    .input-group--inputs {
-        display: flex;
-        gap: .5rem;
-    }
+            &:focus {
+                border-color: var(--color-purple);
+                outline-color: var(--color-purple);
+                color: var(--very-dark-violet);
+            }
 
-    .input-group--exp-date {
-        width: 50%;
-    }
+            &:valid {
+                // To give color when an option is seleted
+                color: var(--very-dark-violet);
+            }
+        }
 
-    .input-group--exp-date--selects {
-        display: flex;
-        flex-direction: row;
-        margin: 0;
-        gap: 10px;
+        input {
+            &::placeholder {
+                color: var(--light-grayish);
+                opacity: 1; /* Firefox */
+            }
+
+            &:focus, :focus-visible {
+                border-color: var(--color-purple);
+                outline-color: var(--color-purple);
+                color: var(--very-dark-violet);
+            }
+
+            &:not(:placeholder-shown) {
+                //When an input is filled
+                color: var(--very-dark-violet);
+            }
+
+            &[type='submit'] {
+                background-color: var(--very-dark-violet);
+                color: var(--color-white);
+                text-transform: uppercase;
+            }
+        
+        }
+
+        &--inputs {
+            display: grid;
+            grid-template-areas:
+                "label1 label1  label2"
+                "month year cvc";
+            width: 90%;
+            grid-template-columns: 20% 1fr;
+
+            @media screen and (max-width: 400px) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &--label1 {
+            grid-area: label1;
+            width: 100%;
+        }
+
+        &--label2 {
+            grid-area: label2;
+        }
+
+        &--month {
+            grid-area: month;
+        }
+
+        &--year {
+            grid-area: year;
+        }
+
+        &--cvc {
+            grid-area: cvc;
+            max-width: 200px;
+        }
+
     }
 
 </style>

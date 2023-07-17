@@ -9,3 +9,12 @@
     <CardFormSection />
   </section>
 </main>
+
+<style lang="scss">
+  .wrapper {
+    @media screen and (min-width: 769px) {
+      display: flex;
+      height: 100vh;
+    }
+  }
+</style>

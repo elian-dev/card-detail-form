@@ -1,17 +1,13 @@
 <script>
-  import { scale } from "svelte/transition";
-
     const actualYear = new Date().getFullYear();
-
     const years = [];
 
     for(let i = actualYear; i <= actualYear+10; i++) {
         years.push(i)
     }
-
 </script>
 <div class="card-form">
-    <form action="/" method="POST">
+    <form action="/" method="POST" id="form">
       <div class="input-group">
         <label for="name">CARDHOLDER NAME</label>
         <input id="name" type="text" placeholder="e.g Jane Appleseed">
@@ -54,6 +50,17 @@
     .card-form {
         width: 90%;
         margin: 3rem auto 0 auto;
+
+        @media screen and (min-width: 769px) {
+            width: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        @media screen and (min-width: 1600px) {
+            width: 100%;
+            place-items: center start;
+        }
     }
 
     .input-group {
@@ -68,6 +75,9 @@
             color: var(--very-dark-violet);
             font-weight: 700;
             text-transform: uppercase;
+            @media screen and (min-width: 1201px) {
+                font-size: 1.2rem;
+            }
         }
         
         input, select {
@@ -116,6 +126,11 @@
                 background-color: var(--very-dark-violet);
                 color: var(--color-white);
                 text-transform: uppercase;
+                height: 50px;
+
+                @media screen and (min-width: 1201px) {
+                    font-size: 1.2rem;
+                }
             }
         
         }
@@ -131,6 +146,10 @@
             @media screen and (max-width: 400px) {
                 display: flex;
                 flex-direction: column;
+            }
+
+            @media screen and (min-width: 769px) {
+                width: 100%;
             }
         }
 
